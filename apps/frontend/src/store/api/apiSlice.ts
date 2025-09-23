@@ -6,17 +6,9 @@ export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: API_BASE_URL,
-        credentials: 'include', // Include cookies for CSRF
-        prepareHeaders: (headers, { getState }) => {
-            // Add CSRF token if available
-            const csrfToken = localStorage.getItem('csrfToken');
-            if (csrfToken) {
-                headers.set('x-csrf-token', csrfToken);
-            }
-            return headers;
-        },
+        credentials: 'include',
     }),
-    tagTypes: ['Menu', 'Order', 'Push', 'Auth'],
+    tagTypes: ['Menu', 'Order', 'Push'],
     endpoints: (builder) => ({
         // Menu endpoints
         getMenuItems: builder.query({
@@ -28,7 +20,7 @@ export const apiSlice = createApi({
         }),
         getMenuItem: builder.query({
             query: (id) => `/menu/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Menu', id }],
+            providesTags: (_, __, id) => [{ type: 'Menu', id }],
         }),
 
         // Order endpoints
@@ -42,7 +34,7 @@ export const apiSlice = createApi({
         }),
         getOrder: builder.query({
             query: (id) => `/orders/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Order', id }],
+            providesTags: (_, __, id) => [{ type: 'Order', id }],
         }),
         updateOrderStatus: builder.mutation({
             query: ({ id, status }) => ({
@@ -50,7 +42,7 @@ export const apiSlice = createApi({
                 method: 'PUT',
                 body: { status },
             }),
-            invalidatesTags: (result, error, { id }) => [{ type: 'Order', id }],
+            invalidatesTags: (_, __, { id }) => [{ type: 'Order', id }],
         }),
 
         // Push notification endpoints
@@ -74,12 +66,6 @@ export const apiSlice = createApi({
             providesTags: ['Push'],
         }),
 
-        // Auth endpoints
-        getCsrfToken: builder.query({
-            query: () => '/auth/csrf',
-            providesTags: ['Auth'],
-        }),
-
         // Health check
         getHealth: builder.query({
             query: () => '/health',
@@ -96,6 +82,5 @@ export const {
     useSubscribeToPushMutation,
     useUnsubscribeFromPushMutation,
     useGetPushPublicKeyQuery,
-    useGetCsrfTokenQuery,
     useGetHealthQuery,
 } = apiSlice;

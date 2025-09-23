@@ -3,13 +3,21 @@
   background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
   color: white;
   position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Set max-width for computer screens */
-@media (min-width: 1400px) {
+/* Additional responsive constraints */
+@media (min-width: 1200px) {
   .menu-page {
     max-width: 1200px;
-    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1400px) {
+  .menu-page {
+    max-width: 1400px;
   }
 }
 
@@ -26,6 +34,8 @@
 
 .header-content {
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;
@@ -138,6 +148,8 @@
 
 .categories-container {
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 0 2rem;
 }
 
@@ -209,6 +221,8 @@
 
 .menu-container {
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 0 2rem;
 }
 
@@ -781,11 +795,6 @@
 
 /* Adjust layout for larger desktop monitors */
 @media (min-width: 1400px) {
-  .menu-page {
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
   .categories-grid {
     grid-template-columns: repeat(6, 1fr);
     gap: 1.5rem;

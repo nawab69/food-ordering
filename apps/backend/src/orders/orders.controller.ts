@@ -7,15 +7,13 @@ import {
     Body,
     HttpStatus,
     HttpException,
-    UseGuards,
-    UseInterceptors
+    UseGuards
 } from '@nestjs/common';
 import {
     ApiTags,
     ApiOperation,
     ApiResponse,
-    ApiParam,
-    ApiSecurity
+    ApiParam
 } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { OrdersService } from './orders.service';
@@ -26,7 +24,6 @@ import {
     UpdateOrderStatusDto,
     OrderDto
 } from '../common/dto/order.dto';
-import { CsrfGuard } from '../auth/csrf.guard';
 
 @ApiTags('orders')
 @Controller('orders')
@@ -38,16 +35,13 @@ export class OrdersController {
     ) { }
 
     @Post()
-    @UseGuards(CsrfGuard)
     @ApiOperation({ summary: 'Create a new order' })
-    @ApiSecurity('csrf-token')
     @ApiResponse({
         status: 201,
         description: 'Order created successfully',
         type: CreateOrderResponseDto
     })
     @ApiResponse({ status: 400, description: 'Invalid order data' })
-    @ApiResponse({ status: 403, description: 'CSRF token required' })
     async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<CreateOrderResponseDto> {
         try {
             const result = await this.ordersService.createOrder(createOrderDto);
@@ -91,10 +85,8 @@ export class OrdersController {
     }
 
     @Put(':id/status')
-    @UseGuards(CsrfGuard)
     @ApiOperation({ summary: 'Update order status (Admin/Mock only)' })
     @ApiParam({ name: 'id', description: 'Order ID' })
-    @ApiSecurity('csrf-token')
     @ApiResponse({
         status: 200,
         description: 'Order status updated successfully',
@@ -102,7 +94,6 @@ export class OrdersController {
     })
     @ApiResponse({ status: 404, description: 'Order not found' })
     @ApiResponse({ status: 400, description: 'Invalid status transition' })
-    @ApiResponse({ status: 403, description: 'CSRF token required' })
     async updateOrderStatus(
         @Param('id') id: string,
         @Body() updateStatusDto: UpdateOrderStatusDto,

@@ -5,7 +5,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { MenuModule } from './menu/menu.module';
 import { OrdersModule } from './orders/orders.module';
 import { PushModule } from './push/push.module';
-import { AuthModule } from './auth/auth.module';
 import { HealthModule } from './health/health.module';
 import { DatabaseService } from './database/database.service';
 
@@ -35,7 +34,6 @@ import { DatabaseService } from './database/database.service';
     MenuModule,
     OrdersModule,
     PushModule,
-    AuthModule,
     HealthModule,
   ],
   providers: [

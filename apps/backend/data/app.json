@@ -1,0 +1,261 @@
+{
+  "menuItems": [
+    {
+      "id": "e3fa438e-078c-44cf-b32d-a6498408c72e",
+      "name": "Truffle Margherita",
+      "category": "pizza",
+      "price": 2400,
+      "imageUrl": "🍕",
+      "rating": 4.9,
+      "estimatedTime": "25-30 min",
+      "description": "Fresh mozzarella, truffle oil, basil",
+      "available": true,
+      "tags": [
+        "signature",
+        "vegetarian"
+      ]
+    },
+    {
+      "id": "e0c180ad-b275-4976-81ca-f5d699768d47",
+      "name": "Pepperoni Supreme",
+      "category": "pizza",
+      "price": 2200,
+      "imageUrl": "🍕",
+      "rating": 4.8,
+      "estimatedTime": "20-25 min",
+      "description": "Pepperoni, cheese, oregano",
+      "available": true
+    },
+    {
+      "id": "834e2d56-be95-4238-8578-c952c173f3aa",
+      "name": "Veggie Delight",
+      "category": "pizza",
+      "price": 2000,
+      "imageUrl": "🍕",
+      "rating": 4.7,
+      "estimatedTime": "25-30 min",
+      "description": "Bell peppers, mushrooms, olives",
+      "available": true,
+      "tags": [
+        "vegetarian",
+        "healthy"
+      ]
+    },
+    {
+      "id": "754f37c2-b9ce-433b-ba8e-35a0bf760dd6",
+      "name": "Wagyu Classic",
+      "category": "burgers",
+      "price": 3200,
+      "imageUrl": "🍔",
+      "rating": 5,
+      "estimatedTime": "15-20 min",
+      "description": "Premium wagyu beef, lettuce, tomato",
+      "available": true,
+      "tags": [
+        "premium",
+        "signature"
+      ]
+    },
+    {
+      "id": "65e3b595-167a-44a9-a8e8-b47c24477174",
+      "name": "Chicken Deluxe",
+      "category": "burgers",
+      "price": 1800,
+      "imageUrl": "🍔",
+      "rating": 4.6,
+      "estimatedTime": "12-15 min",
+      "description": "Grilled chicken, avocado, bacon",
+      "available": true
+    },
+    {
+      "id": "b3c0e3e9-e0e3-4c2b-a243-c05d8484ed12",
+      "name": "Veggie Burger",
+      "category": "burgers",
+      "price": 1600,
+      "imageUrl": "🍔",
+      "rating": 4.5,
+      "estimatedTime": "10-15 min",
+      "description": "Plant-based patty, fresh veggies",
+      "available": true,
+      "tags": [
+        "vegetarian",
+        "vegan",
+        "healthy"
+      ]
+    },
+    {
+      "id": "e2064d6b-323d-41cc-bc01-de8c5cde6b00",
+      "name": "Salmon Poke Bowl",
+      "category": "asian",
+      "price": 1800,
+      "imageUrl": "🍣",
+      "rating": 4.8,
+      "estimatedTime": "15-20 min",
+      "description": "Fresh salmon, rice, edamame",
+      "available": true,
+      "tags": [
+        "healthy",
+        "fresh"
+      ]
+    },
+    {
+      "id": "902d7486-efe3-43b1-add3-7a28cf93b599",
+      "name": "Pad Thai Special",
+      "category": "asian",
+      "price": 1600,
+      "imageUrl": "🍜",
+      "rating": 4.7,
+      "estimatedTime": "20-25 min",
+      "description": "Rice noodles, shrimp, peanuts",
+      "available": true
+    },
+    {
+      "id": "935c5460-44ab-498d-9640-e16a54bb2995",
+      "name": "Chicken Ramen",
+      "category": "asian",
+      "price": 1500,
+      "imageUrl": "🍜",
+      "rating": 4.6,
+      "estimatedTime": "25-30 min",
+      "description": "Rich broth, tender chicken, egg",
+      "available": true
+    },
+    {
+      "id": "1e205e50-1af3-4928-8fd4-0a29fa736498",
+      "name": "Chocolate Lava Cake",
+      "category": "desserts",
+      "price": 1200,
+      "imageUrl": "🍰",
+      "rating": 4.9,
+      "estimatedTime": "10-15 min",
+      "description": "Warm chocolate cake, vanilla ice cream",
+      "available": true,
+      "tags": [
+        "dessert",
+        "warm"
+      ]
+    },
+    {
+      "id": "24e797fc-684d-411a-8b1f-eb55ca163420",
+      "name": "Tiramisu",
+      "category": "desserts",
+      "price": 1000,
+      "imageUrl": "🍰",
+      "rating": 4.8,
+      "estimatedTime": "5-10 min",
+      "description": "Classic Italian dessert",
+      "available": true,
+      "tags": [
+        "dessert",
+        "classic"
+      ]
+    },
+    {
+      "id": "f81e0774-dbf5-4a2a-8e31-89f950509d39",
+      "name": "Fresh Mango Smoothie",
+      "category": "drinks",
+      "price": 800,
+      "imageUrl": "🥤",
+      "rating": 4.7,
+      "estimatedTime": "5-10 min",
+      "description": "Fresh mango, yogurt, honey",
+      "available": true,
+      "tags": [
+        "fresh",
+        "healthy",
+        "vegetarian"
+      ]
+    },
+    {
+      "id": "cf55c21f-b865-4b0c-b4ef-800ff0123dcf",
+      "name": "Iced Coffee",
+      "category": "drinks",
+      "price": 600,
+      "imageUrl": "☕",
+      "rating": 4.5,
+      "estimatedTime": "3-5 min",
+      "description": "Cold brew, milk, caramel",
+      "available": true,
+      "tags": [
+        "caffeine"
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": "o_1758643285368_oeuoe0dwi",
+      "items": [
+        {
+          "id": "34ed1608-ca1d-4905-a37b-c4c87a2f9010",
+          "qty": 2
+        },
+        {
+          "id": "4ac05033-c951-47bf-a23b-b5b2f29e0e4e",
+          "qty": 3
+        }
+      ],
+      "total": 11400,
+      "status": "PENDING",
+      "customer": {
+        "name": "ergstwr",
+        "phone": "01700792973",
+        "address": "rgegdsf",
+        "notes": "gfdsdgsf"
+      },
+      "createdAt": "2025-09-23T16:01:25.368Z",
+      "updatedAt": "2025-09-23T16:01:25.368Z",
+      "etaMinutes": 25
+    },
+    {
+      "id": "o_1758643438905_ry4obk17l",
+      "items": [
+        {
+          "id": "34ed1608-ca1d-4905-a37b-c4c87a2f9010",
+          "qty": 1
+        }
+      ],
+      "total": 2400,
+      "status": "PENDING",
+      "customer": {
+        "name": "Test User",
+        "phone": "+1234567890"
+      },
+      "createdAt": "2025-09-23T16:03:58.905Z",
+      "updatedAt": "2025-09-23T16:03:58.905Z",
+      "etaMinutes": 20
+    },
+    {
+      "id": "o_1758643571786_k78h9hlob",
+      "items": [
+        {
+          "id": "e3fa438e-078c-44cf-b32d-a6498408c72e",
+          "qty": 1
+        },
+        {
+          "id": "e0c180ad-b275-4976-81ca-f5d699768d47",
+          "qty": 1
+        },
+        {
+          "id": "834e2d56-be95-4238-8578-c952c173f3aa",
+          "qty": 1
+        },
+        {
+          "id": "754f37c2-b9ce-433b-ba8e-35a0bf760dd6",
+          "qty": 3
+        }
+      ],
+      "total": 16200,
+      "status": "PENDING",
+      "customer": {
+        "name": "Jonas Short",
+        "phone": "+1 (658) 886-4221",
+        "address": "Illum atque officia",
+        "notes": "Quasi nulla quia eli"
+      },
+      "createdAt": "2025-09-23T16:06:11.786Z",
+      "updatedAt": "2025-09-23T16:06:11.786Z",
+      "etaMinutes": 35
+    }
+  ],
+  "pushSubscriptions": []
+}

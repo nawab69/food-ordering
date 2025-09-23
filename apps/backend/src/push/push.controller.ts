@@ -12,14 +12,12 @@ import {
 import {
     ApiTags,
     ApiOperation,
-    ApiResponse,
-    ApiSecurity
+    ApiResponse
 } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { Request } from 'express';
 import { PushService } from './push.service';
 import { PushSubscriptionDto, PushPublicKeyDto } from '../common/dto/push.dto';
-import { CsrfGuard } from '../auth/csrf.guard';
 
 @ApiTags('push')
 @Controller('push')
@@ -28,15 +26,12 @@ export class PushController {
     constructor(private readonly pushService: PushService) { }
 
     @Post('subscribe')
-    @UseGuards(CsrfGuard)
     @ApiOperation({ summary: 'Subscribe to push notifications' })
-    @ApiSecurity('csrf-token')
     @ApiResponse({
         status: 201,
         description: 'Successfully subscribed to push notifications'
     })
     @ApiResponse({ status: 400, description: 'Invalid subscription data' })
-    @ApiResponse({ status: 403, description: 'CSRF token required' })
     async subscribe(@Body() subscriptionDto: PushSubscriptionDto) {
         try {
             const result = await this.pushService.subscribe(subscriptionDto);
@@ -50,14 +45,11 @@ export class PushController {
     }
 
     @Delete('subscribe')
-    @UseGuards(CsrfGuard)
     @ApiOperation({ summary: 'Unsubscribe from push notifications' })
-    @ApiSecurity('csrf-token')
     @ApiResponse({
         status: 200,
         description: 'Successfully unsubscribed from push notifications'
     })
-    @ApiResponse({ status: 403, description: 'CSRF token required' })
     async unsubscribe(@Req() request: Request) {
         try {
             // In a real app, you might get the endpoint from the request body or auth context

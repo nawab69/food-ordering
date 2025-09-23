@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import { useCreateOrderMutation } from '../store/api/apiSlice';
 import { clearCart, setCartOpen } from '../store/slices/cartSlice';
-import { csrfService } from '../services/csrf.service';
 
 interface CheckoutProps {
     onClose: () => void;
@@ -48,8 +47,6 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
         }
 
         try {
-            // Ensure CSRF token is available
-            await csrfService.ensureCsrfToken();
 
             const orderData = {
                 customer: customerData,
@@ -67,14 +64,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
         } catch (error: any) {
             console.error('Order creation failed:', error);
 
-            // Handle CSRF token expiry
-            if (error.status === 403) {
-                csrfService.clearToken();
-                await csrfService.getCsrfToken();
-                alert('Security token expired. Please try again.');
-            } else {
-                alert('Failed to create order. Please try again.');
-            }
+            alert('Failed to create order. Please try again.');
         }
     };
 

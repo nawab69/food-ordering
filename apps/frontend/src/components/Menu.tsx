@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { useGetMenuItemsQuery } from "../store/api/apiSlice";
 import {
@@ -14,7 +14,6 @@ import {
     toggleCart,
 } from "../store/slices/cartSlice";
 import type { MenuItem as MenuItemType } from "../types";
-import { csrfService } from "../services/csrf.service";
 import Checkout from "./Checkout";
 import "./Menu.css";
 import "./Checkout.css";
@@ -40,11 +39,6 @@ function Menu() {
         isLoading: apiLoading,
         refetch
     } = useGetMenuItemsQuery(queryParams);
-
-    // Initialize CSRF token on component mount
-    useEffect(() => {
-        csrfService.ensureCsrfToken().catch(console.error);
-    }, []);
 
     // Update loading state
     useEffect(() => {
@@ -194,7 +188,7 @@ function Menu() {
                                     <div className="item-content">
                                         <div className="item-header">
                                             <h3>{item.name}</h3>
-                                            <span className="item-time">🕒 {item.estimatedTime}</span>
+                                            <span className="item-time">🕒 {item.time}</span>
                                         </div>
 
                                         <p className="item-description">{item.description}</p>

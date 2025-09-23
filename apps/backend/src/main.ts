@@ -3,7 +3,6 @@ import { ValidationPipe, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
-import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -26,16 +25,12 @@ async function bootstrap() {
     }),
   );
 
-  // Cookie parser for CSRF tokens
-  app.use(cookieParser());
-
-  // CORS configuration
-  const corsOrigin = configService.get<string>('CORS_ORIGIN', 'http://localhost:5173');
+  // CORS configuration - Allow all origins for development
   app.enableCors({
-    origin: corsOrigin.split(','),
+    origin: true, // Allow all origins
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   // Global validation pipe
@@ -54,18 +49,12 @@ async function bootstrap() {
   // Swagger documentation
   const config = new DocumentBuilder()
     .setTitle('Food Ordering API')
-    .setDescription('Offline Food Ordering PWA API with CSRF & Push')
+    .setDescription('Offline Food Ordering PWA API with Push Notifications')
     .setVersion('1.0.0')
     .addTag('menu', 'Menu operations')
     .addTag('orders', 'Order management')
     .addTag('push', 'Push notifications')
-    .addTag('auth', 'Authentication & CSRF')
     .addTag('health', 'Health checks')
-    .addApiKey(
-      { type: 'apiKey', name: 'x-csrf-token', in: 'header' },
-      'csrf-token'
-    )
-    .addCookieAuth('csrf', { type: 'apiKey', in: 'cookie' })
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
