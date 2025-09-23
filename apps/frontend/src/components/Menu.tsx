@@ -15,12 +15,15 @@ import {
 } from "../store/slices/cartSlice";
 import type { MenuItem as MenuItemType } from "../types";
 import Checkout from "./Checkout";
+import PushToggle from "./PushToggle";
 import "./Menu.css";
 import "./Checkout.css";
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
     const dispatch = useAppDispatch();
     const [showCheckout, setShowCheckout] = useState(false);
+    const navigate = useNavigate();
 
     // Redux state
     const { selectedCategory, searchTerm, isLoading, error } = useAppSelector((state) => state.menu);
@@ -115,6 +118,10 @@ function Menu() {
                             {getTotalItems() > 0 && (
                                 <span className="cart-count">{getTotalItems()}</span>
                             )}
+                        </button>
+                        <PushToggle />
+                        <button className="cta-button secondary" onClick={() => navigate('/settings')}>
+                            Settings
                         </button>
                     </div>
                 </div>

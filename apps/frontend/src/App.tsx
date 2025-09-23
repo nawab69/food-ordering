@@ -2,6 +2,7 @@ import "./App.css";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import React from "react";
 import Menu from "./components/Menu";
+import Settings from "./components/Settings";
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -224,6 +225,7 @@ function App() {
         }
       />
       <Route path="/menu" element={<Menu />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 }

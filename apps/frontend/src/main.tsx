@@ -19,8 +19,9 @@ createRoot(document.getElementById('root')!).render(
 // Register service worker for PWA (vite-plugin-pwa)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
+    const swUrl = import.meta.env.DEV ? '/dev-sw.js?dev-sw' : '/sw.js'
     navigator.serviceWorker
-      .register('/sw.js')
+      .register(swUrl, { type: import.meta.env.DEV ? 'module' : undefined })
       .catch((err) => console.error('SW registration failed', err))
   })
 }

@@ -55,9 +55,10 @@ export const apiSlice = createApi({
             invalidatesTags: ['Push'],
         }),
         unsubscribeFromPush: builder.mutation({
-            query: () => ({
+            query: (body: { endpoint: string }) => ({
                 url: '/push/subscribe',
                 method: 'DELETE',
+                body,
             }),
             invalidatesTags: ['Push'],
         }),

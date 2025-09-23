@@ -9,6 +9,13 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['vite.svg'],
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      devOptions: {
+        enabled: true,
+        type: 'module'
+      },
       manifest: {
         name: 'Offline Food Ordering',
         short_name: 'Food Ordering',
@@ -23,34 +30,6 @@ export default defineConfig({
             sizes: 'any',
             type: 'image/svg+xml',
             purpose: 'any'
-          }
-        ]
-      },
-      workbox: {
-        navigateFallback: '/index.html',
-        runtimeCaching: [
-          {
-            urlPattern: /\/api\/menu(.*)/,
-            handler: 'StaleWhileRevalidate',
-            method: 'GET',
-            options: {
-              cacheName: 'api-menu-swr',
-              cacheableResponse: { statuses: [0, 200] }
-            }
-          },
-          {
-            urlPattern: /\/api\/orders(.*)/,
-            handler: 'NetworkOnly',
-            method: 'POST',
-            options: {
-              backgroundSync: {
-                name: 'orders-queue',
-                options: {
-                  // Retain requests for up to 24 hours
-                  maxRetentionTime: 24 * 60
-                }
-              }
-            }
           }
         ]
       }

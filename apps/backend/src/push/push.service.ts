@@ -98,8 +98,8 @@ export class PushService {
                     status,
                     url: `/order/${orderId}`,
                 },
-                icon: '/icons/icon-192x192.png',
-                badge: '/icons/badge-72x72.png',
+                icon: '/vite.svg',
+                badge: '/vite.svg',
                 actions: [
                     {
                         action: 'view',
@@ -141,8 +141,8 @@ export class PushService {
                         type: 'new_order',
                         url: `/admin/orders/${orderId}`,
                     },
-                    icon: '/icons/icon-192x192.png',
-                    badge: '/icons/badge-72x72.png',
+                    icon: '/vite.svg',
+                    badge: '/vite.svg',
                 });
 
                 const notifications = adminSubscriptions.map(subscription =>
