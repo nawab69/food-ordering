@@ -1,9 +1,12 @@
 import "./App.css";
 import { useNavigate, Routes, Route } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import Menu from "./components/Menu";
 import Settings from "./components/Settings";
 import OrderStatus from "./components/OrderStatus";
+import { useAppDispatch } from "./hooks";
+import { loadCart } from "./store/slices/cartSlice";
+import { persistenceService } from "./services/persistence.service";
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -33,6 +36,29 @@ class ErrorBoundary extends React.Component<
 
 function App() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  // Load cart from IndexedDB on app start
+  useEffect(() => {
+    const loadCartFromStorage = async () => {
+      console.log('App: Loading cart from IndexedDB on app start');
+      try {
+        // Check database structure first
+        await persistenceService.checkDatabaseStructure();
+
+        const savedCart = await persistenceService.loadCart();
+        console.log('App: Loaded cart from storage:', savedCart);
+        if (savedCart.length > 0) {
+          console.log('App: Dispatching loadCart with', savedCart.length, 'items');
+          dispatch(loadCart(savedCart));
+        }
+      } catch (error) {
+        console.error('Failed to load cart from storage:', error);
+      }
+    };
+
+    loadCartFromStorage();
+  }, [dispatch]);
 
   return (
     <Routes>

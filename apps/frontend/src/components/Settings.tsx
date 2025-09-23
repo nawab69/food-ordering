@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PushToggle from './PushToggle';
+import { persistenceService } from '../services/persistence.service';
 
 async function clearCaches(): Promise<number> {
     if (!('caches' in self)) return 0;
@@ -35,7 +36,8 @@ const Settings: React.FC = () => {
         try {
             const clearedCaches = await clearCaches();
             await clearIndexedDB();
-            setMessage(`Cleared ${clearedCaches} cache buckets and all IndexedDB databases.`);
+            await persistenceService.clearDatabase();
+            setMessage(`Cleared ${clearedCaches} cache buckets and recreated IndexedDB database.`);
         } catch (e) {
             setMessage('Failed to clear storage.');
         } finally {

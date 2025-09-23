@@ -57,6 +57,7 @@ function Menu() {
         }
     }, [apiError, dispatch]);
 
+
     const categories = [
         { id: "all", name: "All Items", icon: "🍽️" },
         { id: "pizza", name: "Pizza", icon: "🍕" },

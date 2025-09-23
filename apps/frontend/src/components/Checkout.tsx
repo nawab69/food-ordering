@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import { useCreateOrderMutation } from '../store/api/apiSlice';
 import { clearCart, setCartOpen } from '../store/slices/cartSlice';
+import { persistenceService } from '../services/persistence.service';
 
 interface CheckoutProps {
     onClose: () => void;
@@ -57,6 +58,20 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
             };
 
             const result = await createOrder(orderData).unwrap();
+
+            // Save order to IndexedDB
+            const orderToSave = {
+                id: result.orderId,
+                items: cartItems,
+                total: total * 100, // Convert to cents
+                status: result.status,
+                customer: customerData,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+                etaMinutes: result.etaMinutes,
+            };
+
+            await persistenceService.saveOrder(orderToSave);
 
             setOrderSuccess(result);
             dispatch(clearCart());

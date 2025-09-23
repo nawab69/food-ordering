@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { CartItem, MenuItem } from '../../types';
+import { persistenceService } from '../../services/persistence.service';
 
 interface CartState {
     items: CartItem[];
@@ -38,6 +39,9 @@ const cartSlice = createSlice({
             const totals = calculateTotals(state.items);
             state.total = totals.total;
             state.itemCount = totals.itemCount;
+
+            // Persist to IndexedDB
+            persistenceService.saveCart(state.items);
         },
 
         removeFromCart: (state, action: PayloadAction<string>) => {
@@ -46,6 +50,9 @@ const cartSlice = createSlice({
             const totals = calculateTotals(state.items);
             state.total = totals.total;
             state.itemCount = totals.itemCount;
+
+            // Persist to IndexedDB
+            persistenceService.saveCart(state.items);
         },
 
         updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
@@ -63,12 +70,18 @@ const cartSlice = createSlice({
             const totals = calculateTotals(state.items);
             state.total = totals.total;
             state.itemCount = totals.itemCount;
+
+            // Persist to IndexedDB
+            persistenceService.saveCart(state.items);
         },
 
         clearCart: (state) => {
             state.items = [];
             state.total = 0;
             state.itemCount = 0;
+
+            // Clear from IndexedDB
+            persistenceService.clearCart();
         },
 
         toggleCart: (state) => {
@@ -77,6 +90,14 @@ const cartSlice = createSlice({
 
         setCartOpen: (state, action: PayloadAction<boolean>) => {
             state.isOpen = action.payload;
+        },
+
+        // Load cart from IndexedDB
+        loadCart: (state, action: PayloadAction<CartItem[]>) => {
+            state.items = action.payload;
+            const totals = calculateTotals(state.items);
+            state.total = totals.total;
+            state.itemCount = totals.itemCount;
         },
     },
 });
@@ -88,6 +109,7 @@ export const {
     clearCart,
     toggleCart,
     setCartOpen,
+    loadCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
