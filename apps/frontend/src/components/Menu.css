@@ -4,21 +4,8 @@
   color: white;
   position: relative;
   width: 100%;
-  max-width: 1400px;
   margin: 0 auto;
-}
-
-/* Additional responsive constraints */
-@media (min-width: 1200px) {
-  .menu-page {
-    max-width: 1200px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .menu-page {
-    max-width: 1400px;
-  }
+  min-width: 100vw;
 }
 
 /* Header */
@@ -34,7 +21,6 @@
 
 .header-content {
   width: 100%;
-  max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;

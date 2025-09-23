@@ -18,17 +18,17 @@ import { DatabaseService } from './database/database.service';
       {
         name: 'short',
         ttl: 1000, // 1 second
-        limit: 3,
+        limit: 3000,
       },
       {
         name: 'medium',
         ttl: 10000, // 10 seconds
-        limit: 20,
+        limit: 2000,
       },
       {
         name: 'long',
         ttl: 60000, // 1 minute
-        limit: 100,
+        limit: 10000,
       },
     ]),
     MenuModule,
