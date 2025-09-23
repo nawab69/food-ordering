@@ -295,183 +295,22 @@
       "createdAt": "2025-09-23T20:12:54.183Z",
       "updatedAt": "2025-09-23T20:13:40.650Z",
       "etaMinutes": 20
-    },
-    {
-      "id": "o_1758659848700_9fmnakhlu",
-      "items": [
-        {
-          "id": "e0c180ad-b275-4976-81ca-f5d699768d47",
-          "qty": 1
-        }
-      ],
-      "total": 2200,
-      "status": "ACCEPTED",
-      "customer": {
-        "name": "Harding Cook",
-        "phone": "+1 (124) 789-6373",
-        "address": "Eligendi itaque aspe",
-        "notes": "Maiores dolorem quia"
-      },
-      "createdAt": "2025-09-23T20:37:28.700Z",
-      "updatedAt": "2025-09-23T20:37:58.225Z",
-      "etaMinutes": 20
-    },
-    {
-      "id": "o_1758659987406_zsd298pxd",
-      "items": [
-        {
-          "id": "e0c180ad-b275-4976-81ca-f5d699768d47",
-          "qty": 1
-        }
-      ],
-      "total": 2200,
-      "status": "ACCEPTED",
-      "customer": {
-        "name": "Holly Lott",
-        "phone": "+1 (637) 826-4364",
-        "address": "At ut quaerat error ",
-        "notes": "Dolorem quia occaeca"
-      },
-      "createdAt": "2025-09-23T20:39:47.406Z",
-      "updatedAt": "2025-09-23T20:40:20.527Z",
-      "etaMinutes": 20
-    },
-    {
-      "id": "o_1758660227256_ku9iijbr6",
-      "items": [
-        {
-          "id": "e0c180ad-b275-4976-81ca-f5d699768d47",
-          "qty": 1
-        }
-      ],
-      "total": 2200,
-      "status": "ACCEPTED",
-      "customer": {
-        "name": "Nichole Small",
-        "phone": "+1 (872) 787-9111",
-        "address": "Nulla aute ipsum et",
-        "notes": "Alias molestias est "
-      },
-      "createdAt": "2025-09-23T20:43:47.256Z",
-      "updatedAt": "2025-09-23T20:44:05.055Z",
-      "etaMinutes": 20
-    },
-    {
-      "id": "o_1758660311589_6bi3low97",
-      "items": [
-        {
-          "id": "902d7486-efe3-43b1-add3-7a28cf93b599",
-          "qty": 1
-        }
-      ],
-      "total": 1600,
-      "status": "ACCEPTED",
-      "customer": {
-        "name": "Claudia Solis",
-        "phone": "+1 (863) 942-3792",
-        "address": "Id asperiores ipsam ",
-        "notes": "Voluptatem Veniam "
-      },
-      "createdAt": "2025-09-23T20:45:11.589Z",
-      "updatedAt": "2025-09-23T20:45:46.722Z",
-      "etaMinutes": 20
-    },
-    {
-      "id": "o_1758660613055_mftjufo0j",
-      "items": [
-        {
-          "id": "902d7486-efe3-43b1-add3-7a28cf93b599",
-          "qty": 1
-        }
-      ],
-      "total": 1600,
-      "status": "PREPARING",
-      "customer": {
-        "name": "Shellie Gilliam",
-        "phone": "+1 (296) 117-3052",
-        "address": "Modi optio accusamu",
-        "notes": "Nesciunt consectetu"
-      },
-      "createdAt": "2025-09-23T20:50:13.056Z",
-      "updatedAt": "2025-09-23T20:51:52.855Z",
-      "etaMinutes": 20
-    },
-    {
-      "id": "o_1758660962074_x9us7p3ew",
-      "items": [
-        {
-          "id": "e0c180ad-b275-4976-81ca-f5d699768d47",
-          "qty": 1
-        }
-      ],
-      "total": 2200,
-      "status": "PENDING",
-      "customer": {
-        "name": "Brynne Wolf",
-        "phone": "+1 (605) 317-1592",
-        "address": "Enim iusto voluptas ",
-        "notes": "Eaque expedita earum"
-      },
-      "createdAt": "2025-09-23T20:56:02.074Z",
-      "updatedAt": "2025-09-23T20:56:02.074Z",
-      "etaMinutes": 20
-    },
-    {
-      "id": "o_1758661284741_l7kmwzgm0",
-      "items": [
-        {
-          "id": "e3fa438e-078c-44cf-b32d-a6498408c72e",
-          "qty": 1
-        },
-        {
-          "id": "e0c180ad-b275-4976-81ca-f5d699768d47",
-          "qty": 1
-        },
-        {
-          "id": "834e2d56-be95-4238-8578-c952c173f3aa",
-          "qty": 1
-        },
-        {
-          "id": "754f37c2-b9ce-433b-ba8e-35a0bf760dd6",
-          "qty": 1
-        }
-      ],
-      "total": 9800,
-      "status": "PENDING",
-      "customer": {
-        "name": "Molly Banks",
-        "phone": "+1 (319) 851-4064",
-        "address": "Atque ut veniam nul",
-        "notes": "Officiis ut ducimus"
-      },
-      "createdAt": "2025-09-23T21:01:24.741Z",
-      "updatedAt": "2025-09-23T21:01:24.741Z",
-      "etaMinutes": 35
-    },
-    {
-      "id": "o_1758662584724_vuoeunc1n",
-      "items": [
-        {
-          "id": "e0c180ad-b275-4976-81ca-f5d699768d47",
-          "qty": 2
-        },
-        {
-          "id": "754f37c2-b9ce-433b-ba8e-35a0bf760dd6",
-          "qty": 4
-        }
-      ],
-      "total": 17200,
-      "status": "PENDING",
-      "customer": {
-        "name": "Ivana Patterson",
-        "phone": "+1 (537) 355-1397",
-        "address": "Aut dolor voluptates",
-        "notes": "Dignissimos repudian"
-      },
-      "createdAt": "2025-09-23T21:23:04.724Z",
-      "updatedAt": "2025-09-23T21:23:04.724Z",
-      "etaMinutes": 25
     }
   ],
-  "pushSubscriptions": []
+  "pushSubscriptions": [
+    {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/dsjEWfr-LhY:APA91bGYks2ZsRWjTKjCbzxOFB3_Rrkc4zDzAjX3nMnOUzRLh9ziHCC-miAv4c9X9DWLrKvs34yb-sHM54DzMDxtcXFRfxp61pTbkEVO196KgC0iJV-4j1Pf10WwzbTJ0Qg7KOS07I0b",
+      "keys": {
+        "p256dh": "BJpvQLKgt2KURgZAKfGkSUC4_y7h4DblQD0ZOWngDrABO43784TLDnuZ95lmCOPrqNPEaAGSLEF5wrGh49pJfgU",
+        "auth": "vI8WbhPxqkxKvT8gYhYGZg"
+      }
+    },
+    {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/dd-frmur3g8:APA91bHCN8sjbjq6B32pEg88aQJVTM81CbglzpuwR7Gvy9yGo_J-UJEkIFTF-KzHv9eKO4bctQll49fzYhShBnFx_AtJ-_lU8gDGEu94XILBE2UncwnxEhR7NVfFrtbfc9TR0thugDDy",
+      "keys": {
+        "p256dh": "BIma72V-8erq3dvLpsevMa4rCWd3Q5D37ZjqFyW76sNdjDnkBT3ZAmsoel5wVLpK_NavA-x0gWZ1RITkH7yqUuQ",
+        "auth": "3BSqk3-xdMzwz2ofwslH0Q"
+      }
+    }
+  ]
 }

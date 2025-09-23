@@ -124,6 +124,9 @@ function Menu() {
                         <button className="cta-button secondary" onClick={() => navigate('/orders')}>
                             Orders
                         </button>
+                        <button className="cta-button secondary" onClick={() => navigate('/admin')}>
+                            Admin
+                        </button>
                         <button className="cta-button secondary" onClick={() => navigate('/settings')}>
                             Settings
                         </button>

@@ -5,6 +5,7 @@ import Menu from "./components/Menu";
 import Settings from "./components/Settings";
 import OrderStatus from "./components/OrderStatus";
 import OrdersList from "./components/OrdersList";
+import Admin from "./components/Admin";
 import { useAppDispatch } from "./hooks";
 import { loadCart } from "./store/slices/cartSlice";
 import { persistenceService } from "./services/persistence.service";
@@ -254,6 +255,7 @@ function App() {
       />
       <Route path="/menu" element={<Menu />} />
       <Route path="/orders" element={<OrdersList />} />
+      <Route path="/admin" element={<Admin />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/order/:orderId" element={<OrderStatus />} />
     </Routes>
