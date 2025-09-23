@@ -1,0 +1,20 @@
+{
+  "name": "food-ordering",
+  "version": "1.0.0",
+  "description": "Food ordering application monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel --filter='!backend' dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:backend": "pnpm --filter backend start:dev",
+    "build": "pnpm --recursive build",
+    "build:frontend": "pnpm --filter frontend build",
+    "build:backend": "pnpm --filter backend build",
+    "test": "pnpm --recursive test",
+    "lint": "pnpm --recursive lint"
+  },
+  "keywords": ["food-ordering", "monorepo", "nestjs", "react"],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4"
+}
