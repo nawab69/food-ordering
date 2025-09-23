@@ -6,6 +6,7 @@ export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: API_BASE_URL,
+        credentials: 'include', // Include cookies for CSRF
         prepareHeaders: (headers, { getState }) => {
             // Add CSRF token if available
             const csrfToken = localStorage.getItem('csrfToken');
