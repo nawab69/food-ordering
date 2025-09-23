@@ -94,9 +94,20 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
                     <p className="success-message">
                         We'll start preparing your order right away. You'll receive updates on your order status.
                     </p>
-                    <button className="continue-button" onClick={handleClose}>
-                        Continue Shopping
-                    </button>
+                    <div style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
+                        <button className="continue-button" onClick={handleClose}>
+                            Continue Shopping
+                        </button>
+                        <button
+                            className="cta-button primary"
+                            onClick={() => {
+                                handleClose();
+                                window.location.href = `/order/${orderSuccess.orderId}`;
+                            }}
+                        >
+                            Track Order
+                        </button>
+                    </div>
                 </div>
             </div>
         );

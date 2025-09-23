@@ -3,6 +3,7 @@ import { useNavigate, Routes, Route } from "react-router-dom";
 import React from "react";
 import Menu from "./components/Menu";
 import Settings from "./components/Settings";
+import OrderStatus from "./components/OrderStatus";
 
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -226,6 +227,7 @@ function App() {
       />
       <Route path="/menu" element={<Menu />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/order/:orderId" element={<OrderStatus />} />
     </Routes>
   );
 }
