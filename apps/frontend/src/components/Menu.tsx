@@ -121,6 +121,9 @@ function Menu() {
                             )}
                         </button>
                         <PushToggle />
+                        <button className="cta-button secondary" onClick={() => navigate('/orders')}>
+                            Orders
+                        </button>
                         <button className="cta-button secondary" onClick={() => navigate('/settings')}>
                             Settings
                         </button>
