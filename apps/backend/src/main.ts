@@ -30,7 +30,7 @@ async function bootstrap() {
     origin: true, // Allow all origins
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
   });
 
   // Global validation pipe
@@ -54,7 +54,9 @@ async function bootstrap() {
     .addTag('menu', 'Menu operations')
     .addTag('orders', 'Order management')
     .addTag('push', 'Push notifications')
+    .addTag('auth', 'Authentication and CSRF')
     .addTag('health', 'Health checks')
+    .addApiKey({ type: 'apiKey', name: 'x-csrf-token', in: 'header' }, 'csrf-token')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

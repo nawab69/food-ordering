@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { csrfService } from '../../services/csrf.service';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 
@@ -7,6 +8,20 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: API_BASE_URL,
         credentials: 'include',
+        prepareHeaders: async (headers, { endpoint }) => {
+            // Add CSRF token for order creation
+            if (endpoint === 'createOrder') {
+                try {
+                    const csrfHeaders = await csrfService.getHeaders();
+                    Object.entries(csrfHeaders).forEach(([key, value]) => {
+                        headers.set(key, value);
+                    });
+                } catch (error) {
+                    console.error('Failed to get CSRF token:', error);
+                }
+            }
+            return headers;
+        },
     }),
     tagTypes: ['Menu', 'Order', 'Push'],
     endpoints: (builder) => ({

@@ -13,11 +13,13 @@ import {
     ApiTags,
     ApiOperation,
     ApiResponse,
-    ApiParam
+    ApiParam,
+    ApiSecurity
 } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { OrdersService } from './orders.service';
 import { PushService } from '../push/push.service';
+import { CsrfGuard } from '../auth/csrf.guard';
 import {
     CreateOrderDto,
     CreateOrderResponseDto,
@@ -35,13 +37,16 @@ export class OrdersController {
     ) { }
 
     @Post()
+    @UseGuards(CsrfGuard)
     @ApiOperation({ summary: 'Create a new order' })
+    @ApiSecurity('csrf-token')
     @ApiResponse({
         status: 201,
         description: 'Order created successfully',
         type: CreateOrderResponseDto
     })
     @ApiResponse({ status: 400, description: 'Invalid order data' })
+    @ApiResponse({ status: 401, description: 'CSRF token required or invalid' })
     async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<CreateOrderResponseDto> {
         try {
             const result = await this.ordersService.createOrder(createOrderDto);

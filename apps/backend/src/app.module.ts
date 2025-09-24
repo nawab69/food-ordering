@@ -6,6 +6,7 @@ import { MenuModule } from './menu/menu.module';
 import { OrdersModule } from './orders/orders.module';
 import { PushModule } from './push/push.module';
 import { HealthModule } from './health/health.module';
+import { AuthModule } from './auth/auth.module';
 import { DatabaseService } from './database/database.service';
 
 @Module({
@@ -35,6 +36,7 @@ import { DatabaseService } from './database/database.service';
     OrdersModule,
     PushModule,
     HealthModule,
+    AuthModule,
   ],
   providers: [
     DatabaseService,
