@@ -33,7 +33,7 @@ class CsrfService {
             this.csrfToken = data.token;
             this.tokenExpiry = now + 24 * 60 * 60 * 1000; // 24 hours
 
-            return this.csrfToken;
+            return data.token;
         } catch (error) {
             console.error('Failed to get CSRF token:', error);
             throw error;
