@@ -19,10 +19,13 @@ import PushToggle from "./PushToggle";
 import "./Menu.css";
 import "./Checkout.css";
 import { useNavigate } from "react-router-dom";
+import { persistenceService } from "../services/persistence.service";
 
 function Menu() {
     const dispatch = useAppDispatch();
     const [showCheckout, setShowCheckout] = useState(false);
+    const [isOffline, setIsOffline] = useState(!navigator.onLine);
+    const [isMenuCached, setIsMenuCached] = useState(false);
     const navigate = useNavigate();
 
     // Redux state
@@ -42,6 +45,29 @@ function Menu() {
         isLoading: apiLoading,
         refetch
     } = useGetMenuItemsQuery(queryParams);
+
+    // Check if menu is cached
+    useEffect(() => {
+        const checkMenuCache = async () => {
+            const cached = await persistenceService.isMenuCached();
+            setIsMenuCached(cached);
+        };
+        checkMenuCache();
+    }, []);
+
+    // Offline/online detection
+    useEffect(() => {
+        const handleOnline = () => setIsOffline(false);
+        const handleOffline = () => setIsOffline(true);
+
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+
+        return () => {
+            window.removeEventListener('online', handleOnline);
+            window.removeEventListener('offline', handleOffline);
+        };
+    }, []);
 
     // Update loading state
     useEffect(() => {
@@ -101,6 +127,16 @@ function Menu() {
                     </div>
 
                     <div className="header-actions">
+                        {/* Offline Status Indicator */}
+                        {isOffline && (
+                            <div className="offline-indicator">
+                                <span className="offline-icon">📡</span>
+                                <span className="offline-text">
+                                    {isMenuCached ? 'Offline - Cached Menu' : 'Offline - No Menu'}
+                                </span>
+                            </div>
+                        )}
+
                         <div className="search-box">
                             <span className="search-icon">🔍</span>
                             <input

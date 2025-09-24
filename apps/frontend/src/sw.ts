@@ -23,6 +23,94 @@ self.addEventListener('activate', (event) => {
     event.waitUntil(self.clients.claim());
 });
 
+// Cache strategies for different types of requests
+self.addEventListener('fetch', (event: FetchEvent) => {
+    const { request } = event;
+    const url = new URL(request.url);
+
+    // Menu API - Cache First with background update
+    if (url.pathname.includes('/api/menu')) {
+        event.respondWith(
+            caches.open('menu-cache').then(cache => {
+                return cache.match(request).then(response => {
+                    // Return cached version immediately
+                    if (response) {
+                        console.log('Serving menu from cache');
+                        // Update cache in background
+                        fetch(request).then(fetchResponse => {
+                            if (fetchResponse.ok) {
+                                cache.put(request, fetchResponse.clone());
+                                console.log('Menu cache updated in background');
+                            }
+                        }).catch(() => {
+                            console.log('Background menu update failed');
+                        });
+                        return response;
+                    }
+
+                    // If no cache, fetch and cache
+                    return fetch(request).then(fetchResponse => {
+                        if (fetchResponse.ok) {
+                            cache.put(request, fetchResponse.clone());
+                            console.log('Menu cached for offline use');
+                        }
+                        return fetchResponse;
+                    }).catch(() => {
+                        // If network fails, try to return any cached version
+                        return cache.match(request).then(cachedResponse => {
+                            if (cachedResponse) {
+                                console.log('Network failed, serving stale menu from cache');
+                                return cachedResponse;
+                            }
+                            // Return offline fallback
+                            return new Response(JSON.stringify([]), {
+                                headers: { 'Content-Type': 'application/json' }
+                            });
+                        });
+                    });
+                });
+            })
+        );
+        return;
+    }
+
+    // Orders API - Network only (no caching for orders)
+    if (url.pathname.includes('/api/orders')) {
+        event.respondWith(
+            fetch(request).catch(() => {
+                // Return offline indicator for orders
+                return new Response(JSON.stringify({
+                    error: 'Offline - Order will be queued for later submission'
+                }), {
+                    status: 503,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            })
+        );
+        return;
+    }
+
+    // Static assets - Cache First
+    if (request.destination === 'script' ||
+        request.destination === 'style' ||
+        request.destination === 'image') {
+        event.respondWith(
+            caches.match(request).then(response => {
+                return response || fetch(request).then(fetchResponse => {
+                    if (fetchResponse.ok) {
+                        const responseClone = fetchResponse.clone();
+                        caches.open('static-cache').then(cache => {
+                            cache.put(request, responseClone);
+                        });
+                    }
+                    return fetchResponse;
+                });
+            })
+        );
+        return;
+    }
+});
+
 // Push notifications
 self.addEventListener('push', (event: PushEvent) => {
     console.log('Push event received:', event);

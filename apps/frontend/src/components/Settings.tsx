@@ -28,7 +28,22 @@ async function clearIndexedDB(): Promise<void> {
 
 const Settings: React.FC = () => {
     const [busy, setBusy] = useState(false);
+    const [menuCacheStatus, setMenuCacheStatus] = useState<string>('Checking...');
     const [message, setMessage] = useState<string | null>(null);
+
+    // Check menu cache status on component mount
+    React.useEffect(() => {
+        const checkMenuCache = async () => {
+            try {
+                const isCached = await persistenceService.isMenuCached();
+                const cachedItems = await persistenceService.getCachedMenuItems();
+                setMenuCacheStatus(isCached ? `${cachedItems.length} items cached` : 'No menu cached');
+            } catch (error) {
+                setMenuCacheStatus('Error checking cache');
+            }
+        };
+        checkMenuCache();
+    }, []);
 
     const handleClearAll = async () => {
         setBusy(true);
@@ -38,8 +53,23 @@ const Settings: React.FC = () => {
             await clearIndexedDB();
             await persistenceService.clearDatabase();
             setMessage(`Cleared ${clearedCaches} cache buckets and recreated IndexedDB database.`);
+            setMenuCacheStatus('No menu cached');
         } catch (e) {
             setMessage('Failed to clear storage.');
+        } finally {
+            setBusy(false);
+        }
+    };
+
+    const handleClearMenuCache = async () => {
+        setBusy(true);
+        setMessage(null);
+        try {
+            await persistenceService.clearMenuCache();
+            setMessage('Menu cache cleared successfully.');
+            setMenuCacheStatus('No menu cached');
+        } catch (e) {
+            setMessage(`Error: ${e}`);
         } finally {
             setBusy(false);
         }
@@ -54,10 +84,19 @@ const Settings: React.FC = () => {
             </section>
 
             <section style={{ marginTop: 24 }}>
+                <h3>Menu Cache</h3>
+                <p>Status: {menuCacheStatus}</p>
+                <p>Menu items are cached for offline use. Clear cache to force fresh download.</p>
+                <button className="cta-button secondary" onClick={handleClearMenuCache} disabled={busy}>
+                    {busy ? 'Clearing…' : 'Clear Menu Cache'}
+                </button>
+            </section>
+
+            <section style={{ marginTop: 24 }}>
                 <h3>Storage</h3>
-                <p>Clear cached files and IndexedDB data.</p>
+                <p>Clear all cached files and IndexedDB data.</p>
                 <button className="cta-button secondary" onClick={handleClearAll} disabled={busy}>
-                    {busy ? 'Clearing…' : 'Clear Cache & IndexedDB'}
+                    {busy ? 'Clearing…' : 'Clear All Cache & IndexedDB'}
                 </button>
             </section>
 

@@ -137,19 +137,38 @@ class PersistenceService {
 
     // Menu items cache
     async cacheMenuItems(menuItems: MenuItem[]) {
+        console.log('Caching menu items to IndexedDB:', menuItems.length, 'items');
         const db = await this.init();
         const tx = db.transaction('menuItems', 'readwrite');
+        await tx.objectStore('menuItems').clear(); // Clear existing before adding new
         for (const item of menuItems) {
             await tx.store.put(item);
         }
         await tx.done;
+        console.log('Menu items cached successfully');
     }
 
     async getCachedMenuItems(): Promise<MenuItem[]> {
+        console.log('Loading cached menu items from IndexedDB');
         const db = await this.init();
         const tx = db.transaction('menuItems', 'readonly');
         const items = await tx.store.getAll();
+        console.log('Loaded cached menu items:', items.length, 'items');
         return items || [];
+    }
+
+    async isMenuCached(): Promise<boolean> {
+        const items = await this.getCachedMenuItems();
+        return items.length > 0;
+    }
+
+    async clearMenuCache(): Promise<void> {
+        console.log('Clearing menu cache');
+        const db = await this.init();
+        const tx = db.transaction('menuItems', 'readwrite');
+        await tx.objectStore('menuItems').clear();
+        await tx.done;
+        console.log('Menu cache cleared');
     }
 
     // Clear all data
