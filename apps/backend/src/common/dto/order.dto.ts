@@ -20,10 +20,9 @@ export class CustomerDto {
     @IsString()
     phone: string;
 
-    @ApiPropertyOptional({ description: 'Customer address' })
-    @IsOptional()
+    @ApiProperty({ description: 'Customer address' })
     @IsString()
-    address?: string;
+    address: string;
 
     @ApiPropertyOptional({ description: 'Special notes' })
     @IsOptional()
