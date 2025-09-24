@@ -379,26 +379,6 @@
       "createdAt": "2025-09-24T06:11:39.253Z",
       "updatedAt": "2025-09-24T06:11:39.253Z",
       "etaMinutes": 20
-    },
-    {
-      "id": "o_1758695599167_7qwinre8l",
-      "items": [
-        {
-          "id": "e3fa438e-078c-44cf-b32d-a6498408c72e",
-          "qty": 6
-        }
-      ],
-      "total": 14400,
-      "status": "PENDING",
-      "customer": {
-        "name": "Mechelle Castaneda",
-        "phone": "+1 (319) 873-6245",
-        "address": "Vero in aliquam cons",
-        "notes": "Qui nesciunt mollit"
-      },
-      "createdAt": "2025-09-24T06:33:19.167Z",
-      "updatedAt": "2025-09-24T06:33:19.167Z",
-      "etaMinutes": 20
     }
   ],
   "pushSubscriptions": [
@@ -414,6 +394,13 @@
       "keys": {
         "p256dh": "BIma72V-8erq3dvLpsevMa4rCWd3Q5D37ZjqFyW76sNdjDnkBT3ZAmsoel5wVLpK_NavA-x0gWZ1RITkH7yqUuQ",
         "auth": "3BSqk3-xdMzwz2ofwslH0Q"
+      }
+    },
+    {
+      "endpoint": "https://fcm.googleapis.com/fcm/send/d1YZerBS4yM:APA91bF5bOiHEOCQP0Hd_7MeZJYc5XID_Dc7L7jq5ElIUEj82kWYi9V5xAkA6f9GUrWBvUitQeI7iqCqvn1MSIAH47jgU-b-wZ8ZVODPpWniX--qwiEOSp9R2izCJ89gboI_0TOUxhr5",
+      "keys": {
+        "p256dh": "BC_KYBA3S7sxEMaI10hqQYH9IZHOaeswzQBBsITmWUnw56GmzHC5mm1mJoYDEbraXrll86D2Sb0hY1Ibm6DEJ9Q",
+        "auth": "4XhFGx1cSW_osOMhIQHa7g"
       }
     }
   ]
