@@ -283,7 +283,8 @@ food-ordering/
 ### **Development**
 ```bash
 # Start both frontend and backend
-pnpm dev
+pnpm dev:frontend
+pnpm dev:backend
 ```
 
 ### **Production Build**
