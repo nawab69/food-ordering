@@ -85,7 +85,11 @@ export class OrdersController {
         // Convert price from cents to dollars for API response
         return {
             ...order,
-            total: order.total / 100
+            total: order.total / 100,
+            customer: {
+                ...order.customer,
+                address: order.customer.address || ''
+            }
         };
     }
 
@@ -119,7 +123,12 @@ export class OrdersController {
             // Convert price from cents to dollars for API response
             return {
                 ...updatedOrder,
-                total: updatedOrder.total / 100
+                total: updatedOrder.total / 100,
+                customer: {
+                    ...updatedOrder.customer,
+                    address: updatedOrder.customer.address || ''
+                }
+
             };
         } catch (error) {
             if (error instanceof HttpException) {
@@ -146,7 +155,11 @@ export class OrdersController {
             // Convert prices from cents to dollars for API response
             return orders.map(order => ({
                 ...order,
-                total: order.total / 100
+                total: order.total / 100,
+                customer: {
+                    ...order.customer,
+                    address: order.customer.address || ''
+                }
             }));
         } catch (error) {
             throw new HttpException(

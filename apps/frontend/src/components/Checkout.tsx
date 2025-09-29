@@ -129,114 +129,117 @@ const Checkout: React.FC<CheckoutProps> = ({ onClose }) => {
     }
 
     return (
-        <div className="checkout-container">
-            <div className="checkout-header">
-                <h2>Checkout</h2>
-                <button className="close-button" onClick={onClose}>
-                    ✕
-                </button>
-            </div>
-
-            <div className="checkout-content">
-                <div className="order-summary">
-                    <h3>Order Summary</h3>
-                    <div className="order-items">
-                        {cartItems.map((item) => (
-                            <div key={item.id} className="order-item">
-                                <span className="item-emoji">{item.imageUrl}</span>
-                                <div className="item-details">
-                                    <span className="item-name">{item.name}</span>
-                                    <span className="item-qty">Qty: {item.quantity}</span>
-                                </div>
-                                <span className="item-total">${(item.price * item.quantity).toFixed(2)}</span>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="order-total">
-                        <div className="total-row">
-                            <span>Subtotal:</span>
-                            <span>${total.toFixed(2)}</span>
-                        </div>
-                        <div className="total-row">
-                            <span>Delivery:</span>
-                            <span>$3.99</span>
-                        </div>
-                        <div className="total-row final">
-                            <span>Total:</span>
-                            <span>${(total + 3.99).toFixed(2)}</span>
-                        </div>
-                    </div>
+        <>
+            <div className="checkout-backdrop" onClick={onClose}></div>
+            <div className="checkout-container">
+                <div className="checkout-header">
+                    <h2>Checkout</h2>
+                    <button className="close-button" onClick={onClose}>
+                        ✕
+                    </button>
                 </div>
 
-                <form className="customer-form" onSubmit={handleSubmit}>
-                    <h3>Delivery Information</h3>
-
-                    <div className="form-group">
-                        <label htmlFor="name">Name *</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={customerData.name}
-                            onChange={handleInputChange}
-                            required
-                            placeholder="Your full name"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="phone">Phone *</label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            value={customerData.phone}
-                            onChange={handleInputChange}
-                            required
-                            placeholder="+1 (555) 123-4567"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="address">Address</label>
-                        <input
-                            type="text"
-                            id="address"
-                            name="address"
-                            value={customerData.address}
-                            onChange={handleInputChange}
-                            placeholder="Delivery address"
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="notes">Special Instructions</label>
-                        <textarea
-                            id="notes"
-                            name="notes"
-                            value={customerData.notes}
-                            onChange={handleInputChange}
-                            placeholder="Any special requests..."
-                            rows={3}
-                        />
-                    </div>
-
-                    {error && (
-                        <div className="error-message">
-                            <p>❌ Failed to create order. Please try again.</p>
+                <div className="checkout-content">
+                    <div className="order-summary">
+                        <h3>Order Summary</h3>
+                        <div className="order-items">
+                            {cartItems.map((item) => (
+                                <div key={item.id} className="order-item">
+                                    <span className="item-emoji">{item.imageUrl}</span>
+                                    <div className="item-details">
+                                        <span className="item-name">{item.name}</span>
+                                        <span className="item-qty">Qty: {item.quantity}</span>
+                                    </div>
+                                    <span className="item-total">${(item.price * item.quantity).toFixed(2)}</span>
+                                </div>
+                            ))}
                         </div>
-                    )}
+                        <div className="order-total">
+                            <div className="total-row">
+                                <span>Subtotal:</span>
+                                <span>${total.toFixed(2)}</span>
+                            </div>
+                            <div className="total-row">
+                                <span>Delivery:</span>
+                                <span>$3.99</span>
+                            </div>
+                            <div className="total-row final">
+                                <span>Total:</span>
+                                <span>${(total + 3.99).toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
 
-                    <button
-                        type="submit"
-                        className="place-order-button"
-                        disabled={isLoading || cartItems.length === 0}
-                    >
-                        {isLoading ? 'Placing Order...' : `Place Order - $${(total + 3.99).toFixed(2)}`}
-                    </button>
-                </form>
+                    <form className="customer-form" onSubmit={handleSubmit}>
+                        <h3>Delivery Information</h3>
+
+                        <div className="form-group">
+                            <label htmlFor="name">Name *</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={customerData.name}
+                                onChange={handleInputChange}
+                                required
+                                placeholder="Your full name"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="phone">Phone *</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                value={customerData.phone}
+                                onChange={handleInputChange}
+                                required
+                                placeholder="+1 (555) 123-4567"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="address">Address</label>
+                            <input
+                                type="text"
+                                id="address"
+                                name="address"
+                                value={customerData.address}
+                                onChange={handleInputChange}
+                                placeholder="Delivery address"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="notes">Special Instructions</label>
+                            <textarea
+                                id="notes"
+                                name="notes"
+                                value={customerData.notes}
+                                onChange={handleInputChange}
+                                placeholder="Any special requests..."
+                                rows={3}
+                            />
+                        </div>
+
+                        {error && (
+                            <div className="error-message">
+                                <p>❌ Failed to create order. Please try again.</p>
+                            </div>
+                        )}
+
+                        <button
+                            type="submit"
+                            className="place-order-button"
+                            disabled={isLoading || cartItems.length === 0}
+                        >
+                            {isLoading ? 'Placing Order...' : `Place Order - $${(total + 3.99).toFixed(2)}`}
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

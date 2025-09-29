@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { useGetMenuItemsQuery } from "../store/api/apiSlice";
 import {
@@ -19,29 +19,52 @@ import PushToggle from "./PushToggle";
 import "./Menu.css";
 import "./Checkout.css";
 import { useNavigate } from "react-router-dom";
+import { persistenceService } from "../services/persistence.service";
 
 function Menu() {
     const dispatch = useAppDispatch();
     const [showCheckout, setShowCheckout] = useState(false);
+    const [isOffline, setIsOffline] = useState(!navigator.onLine);
+    const [isMenuCached, setIsMenuCached] = useState(false);
+    const [showFilters, setShowFilters] = useState(false);
+    const [vegOnly, setVegOnly] = useState(false);
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 100 });
     const navigate = useNavigate();
 
     // Redux state
     const { selectedCategory, searchTerm, isLoading, error } = useAppSelector((state) => state.menu);
     const { items: cartItems, total, itemCount, isOpen: showCart } = useAppSelector((state) => state.cart);
 
-    // Prepare API query parameters
-    const queryParams = {
-        ...(searchTerm && { q: searchTerm }),
-        ...(selectedCategory !== "all" && { category: selectedCategory }),
-    };
-
-    // API query for menu items
+    // API query for menu items - fetch all items for client-side filtering
     const {
         data: menuItems = [],
         error: apiError,
         isLoading: apiLoading,
         refetch
-    } = useGetMenuItemsQuery(queryParams);
+    } = useGetMenuItemsQuery({});
+
+    // Check if menu is cached
+    useEffect(() => {
+        const checkMenuCache = async () => {
+            const cached = await persistenceService.isMenuCached();
+            setIsMenuCached(cached);
+        };
+        checkMenuCache();
+    }, []);
+
+    // Offline/online detection
+    useEffect(() => {
+        const handleOnline = () => setIsOffline(false);
+        const handleOffline = () => setIsOffline(true);
+
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
+
+        return () => {
+            window.removeEventListener('online', handleOnline);
+            window.removeEventListener('offline', handleOffline);
+        };
+    }, []);
 
     // Update loading state
     useEffect(() => {
@@ -68,7 +91,42 @@ function Menu() {
     ];
 
     // The API already handles filtering based on queryParams, so we use the data directly
-    const filteredItems = menuItems || [];
+    // Client-side filtering for both online and offline data
+    const filteredItems = React.useMemo(() => {
+        if (!menuItems || menuItems.length === 0) return [];
+
+        let filtered = [...menuItems];
+
+        // Filter by category
+        if (selectedCategory !== 'all') {
+            filtered = filtered.filter(item => item.category === selectedCategory);
+        }
+
+        // Filter by search term
+        if (searchTerm.trim()) {
+            const term = searchTerm.toLowerCase().trim();
+            filtered = filtered.filter(item =>
+                item.name.toLowerCase().includes(term) ||
+                item.description?.toLowerCase().includes(term) ||
+                item.category.toLowerCase().includes(term)
+            );
+        }
+
+        // Filter by vegetarian option
+        if (vegOnly) {
+            filtered = filtered.filter(item =>
+                item.tags?.includes('veg') ||
+                item.tags?.includes('vegetarian')
+            );
+        }
+
+        // Filter by price range
+        filtered = filtered.filter(item =>
+            item.price >= priceRange.min && item.price <= priceRange.max
+        );
+
+        return filtered;
+    }, [menuItems, selectedCategory, searchTerm, vegOnly, priceRange]);
 
     const handleAddToCart = (item: MenuItemType) => {
         dispatch(addToCart(item));
@@ -101,6 +159,16 @@ function Menu() {
                     </div>
 
                     <div className="header-actions">
+                        {/* Offline Status Indicator */}
+                        {isOffline && (
+                            <div className="offline-indicator">
+                                <span className="offline-icon">📡</span>
+                                <span className="offline-text">
+                                    {isMenuCached ? 'Offline - Cached Menu' : 'Offline - No Menu'}
+                                </span>
+                            </div>
+                        )}
+
                         <div className="search-box">
                             <span className="search-icon">🔍</span>
                             <input
@@ -110,6 +178,14 @@ function Menu() {
                                 onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                             />
                         </div>
+
+                        {/* Filter Toggle Button */}
+                        <button
+                            className="filter-button"
+                            onClick={() => setShowFilters(!showFilters)}
+                        >
+                            🔧 Filters
+                        </button>
 
                         <button
                             className="cart-button"
@@ -124,15 +200,55 @@ function Menu() {
                         <button className="cta-button secondary" onClick={() => navigate('/orders')}>
                             Orders
                         </button>
-                        <button className="cta-button secondary" onClick={() => navigate('/admin')}>
-                            Admin
-                        </button>
+
                         <button className="cta-button secondary" onClick={() => navigate('/settings')}>
                             Settings
                         </button>
                     </div>
                 </div>
             </header>
+
+            {/* Filter Panel */}
+            {showFilters && (
+                <div className="filter-panel">
+                    <div className="filter-content">
+                        <div className="filter-group">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={vegOnly}
+                                    onChange={(e) => setVegOnly(e.target.checked)}
+                                />
+                                🌱 Vegetarian Only
+                            </label>
+                        </div>
+
+                        <div className="filter-group">
+                            <label>Price Range: ${priceRange.min} - ${priceRange.max}</label>
+                            <div className="price-range">
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="50"
+                                    value={priceRange.max}
+                                    onChange={(e) => setPriceRange(prev => ({ ...prev, max: parseInt(e.target.value) }))}
+                                />
+                                <span>Max: ${priceRange.max}</span>
+                            </div>
+                        </div>
+
+                        <button
+                            className="clear-filters"
+                            onClick={() => {
+                                setVegOnly(false);
+                                setPriceRange({ min: 0, max: 100 });
+                            }}
+                        >
+                            Clear Filters
+                        </button>
+                    </div>
+                </div>
+            )}
 
             {/* Categories */}
             <section className="categories-section">
